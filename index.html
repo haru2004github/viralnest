@@ -6,6 +6,7 @@
     <title>Viral Nest - Premium Client Onboarding Form</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="icon" href="./img/logo.jpg">
     <script>
         tailwind.config = {
             theme: {
@@ -146,24 +147,7 @@
             <div class="inline-flex items-center justify-center mb-6 relative">
                 <div class="absolute inset-0 bg-brand-orange blur-2xl opacity-20 rounded-full"></div>
                 <div class="relative w-20 h-20 mr-4">
-                    <svg viewBox="0 0 100 100" class="w-full h-full drop-shadow-[0_0_10px_rgba(255,107,0,0.8)]">
-                        <!-- V Shape -->
-                        <path d="M15,20 L40,85 L65,40" fill="none" stroke="url(#orangeGrad)" stroke-width="12" stroke-linejoin="round" stroke-linecap="round"/>
-                        <!-- N Shape -->
-                        <path d="M40,85 L65,40 L65,85 L90,20" fill="none" stroke="#e0e0e0" stroke-width="12" stroke-linejoin="round" stroke-linecap="round"/>
-                        <!-- Orbit/Swirl -->
-                        <path d="M50,90 Q95,95 95,50 Q95,15 65,15" fill="none" stroke="url(#orangeGrad)" stroke-width="3" stroke-linecap="round"/>
-                        <!-- Dot -->
-                        <circle cx="95" cy="30" r="4" fill="#FF6B00" />
-                        
-                        <!-- Gradient Definition -->
-                        <defs>
-                            <linearGradient id="orangeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                                <stop offset="0%" stop-color="#FF9900" />
-                                <stop offset="100%" stop-color="#FF6B00" />
-                            </linearGradient>
-                        </defs>
-                    </svg>
+                    <img class="rounded-xl border border-orange-500" src="./img/logo.jpg" alt="">
                 </div>
                 <h1 class="text-5xl font-bold tracking-widest uppercase">
                     <span class="text-gradient-orange">Viral</span>
@@ -196,12 +180,12 @@
                 
                 <div class="space-y-6">
                     <div class="group">
-                        <label class="block text-sm font-semibold text-gray-200 mb-2 group-focus-within:text-brand-orange transition-colors">သင့်အမည် သို့မဟုတ် Brand အမည် (Folder Name အတွက်) <span class="text-brand-orange">*</span></label>
+                        <label class="block text-sm font-semibold text-gray-200 mb-2 group-focus-within:text-brand-orange transition-colors">သင့်အမည် သို့မဟုတ် Brand အမည် <span class="text-brand-orange">*</span></label>
                         <input type="text" id="userName" name="userName" required placeholder="ဥပမာ - Royal Fashion" 
                             class="w-full premium-input rounded-xl px-5 py-4 placeholder-gray-400">
                     </div>
                     <div class="group">
-                        <label class="block text-sm font-semibold text-gray-200 mb-2 group-focus-within:text-brand-orange transition-colors">သင့် Email (Auto-reply ပို့ရန်) <span class="text-brand-orange">*</span></label>
+                        <label class="block text-sm font-semibold text-gray-200 mb-2 group-focus-within:text-brand-orange transition-colors">သင့် Email  <span class="text-brand-orange">*</span></label>
                         <input type="email" id="userEmail" name="userEmail" required placeholder="ဥပမာ - yourname@gmail.com" 
                             class="w-full premium-input rounded-xl px-5 py-4 placeholder-gray-400">
                     </div>
