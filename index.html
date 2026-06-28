@@ -201,6 +201,11 @@
                             class="w-full premium-input rounded-xl px-5 py-4 placeholder-gray-400">
                     </div>
                     <div class="group">
+                        <label class="block text-sm font-semibold text-gray-200 mb-2 group-focus-within:text-brand-orange transition-colors">သင့် Email (Auto-reply ပို့ရန်) <span class="text-brand-orange">*</span></label>
+                        <input type="email" id="userEmail" name="userEmail" required placeholder="ဥပမာ - yourname@gmail.com" 
+                            class="w-full premium-input rounded-xl px-5 py-4 placeholder-gray-400">
+                    </div>
+                    <div class="group">
                         <label class="block text-sm font-semibold text-gray-200 mb-2 group-focus-within:text-brand-orange transition-colors">Post တွေမှာ ထည့်ရမယ့် လိပ်စာ/ Phone Number <span class="text-brand-orange">*</span></label>
                         <textarea name="contactInfo" required rows="2" placeholder="ဖုန်းနံပါတ် နှင့် လိပ်စာ အပြည့်အစုံ..." 
                             class="w-full premium-input rounded-xl px-5 py-4 placeholder-gray-400 resize-none"></textarea>
@@ -306,6 +311,21 @@
             <div id="statusMsg" class="hidden text-center p-4 rounded-xl font-medium backdrop-blur-md"></div>
 
         </form>
+    </div>
+
+    <!-- Full Screen Loading Overlay -->
+    <div id="loadingOverlay" class="fixed inset-0 bg-[#050507]/90 backdrop-blur-md z-50 hidden flex-col items-center justify-center">
+        <div class="relative w-24 h-24 mb-6">
+            <svg class="animate-spin w-full h-full text-brand-orange" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+            <div class="absolute inset-0 flex items-center justify-center">
+                <i class="fas fa-cloud-arrow-up text-2xl text-white"></i>
+            </div>
+        </div>
+        <h3 class="text-2xl font-bold text-white mb-2" id="loadingTitle">ဖိုင်များ တင်ပို့နေပါသည်...</h3>
+        <p class="text-brand-orangeLight font-medium animate-pulse">ကျေးဇူးပြု၍ ဤစာမျက်နှာကို မပိတ်ပါနှင့်။</p>
     </div>
 
     <!-- JavaScript Logic (Kept functionally the same) -->
@@ -420,32 +440,26 @@
         document.getElementById('viralNestForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
-            const btn = document.getElementById('submitBtn');
-            const btnText = document.getElementById('btnText');
-            const spinner = document.getElementById('btnSpinner');
+            const overlay = document.getElementById('loadingOverlay');
+            const loadingTitle = document.getElementById('loadingTitle');
             const statusMsg = document.getElementById('statusMsg');
 
-            if (GOOGLE_SCRIPT_URL === 'YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE') {
-                alert("စမ်းသပ်ရန်အတွက်သာဖြစ်သည်။ အမှန်တကယ်အလုပ်လုပ်ရန် Google Apps Script URL ကို Code ထဲတွင် ထည့်ပေးရန်လိုအပ်ပါသည်။");
-                return;
-            }
-
-            btn.disabled = true;
-            btnText.textContent = 'Sending Data...';
-            spinner.classList.remove('hidden');
+            // Show full screen overlay
+            overlay.classList.remove('hidden');
+            overlay.classList.add('flex');
             statusMsg.classList.add('hidden');
 
             try {
                 const formData = new FormData(this);
                 const dataObject = Object.fromEntries(formData.entries());
                 
-                btnText.textContent = 'Preparing Files...';
+                loadingTitle.textContent = 'ဖိုင်များ ပြင်ဆင်နေပါသည်... (Preparing Files)';
                 const filePromises = selectedFiles.map(file => getBase64(file));
                 const filesBase64 = await Promise.all(filePromises);
                 
                 dataObject.files = JSON.stringify(filesBase64);
                 
-                btnText.textContent = 'Uploading... (Please wait)';
+                loadingTitle.textContent = 'ဒေတာများ ပေးပို့နေပါသည်... (Uploading...)';
                 
                 const response = await fetch(GOOGLE_SCRIPT_URL, {
                     method: 'POST',
@@ -457,8 +471,11 @@
                     body: JSON.stringify(dataObject)
                 });
 
-                statusMsg.textContent = "အချက်အလက်များ အောင်မြင်စွာ ပေးပို့ပြီးပါပြီ။ ကျေးဇူးတင်ပါသည်။";
-                statusMsg.className = "text-center p-4 rounded-xl font-medium bg-green-500/20 text-green-300 border border-green-500/30 mt-6 block backdrop-blur-md shadow-[0_0_20px_rgba(34,197,94,0.1)]";
+                overlay.classList.add('hidden');
+                overlay.classList.remove('flex');
+
+                statusMsg.textContent = "အချက်အလက်များ အောင်မြင်စွာ ပေးပို့ပြီးပါပြီ။ သင့် Email သို့ ပြန်လည်အကြောင်းကြားပေးထားပါသည်။";
+                statusMsg.className = "text-center p-4 rounded-xl font-medium bg-green-500/20 text-green-400 border border-green-500/30 mt-6 block backdrop-blur-md shadow-[0_0_20px_rgba(34,197,94,0.1)]";
                 
                 this.reset();
                 selectedFiles = [];
@@ -466,15 +483,14 @@
 
             } catch (error) {
                 console.error('Error:', error);
+                overlay.classList.add('hidden');
+                overlay.classList.remove('flex');
+
                 statusMsg.textContent = "အမှားအယွင်းဖြစ်ပေါ်နေပါသည်။ ခေတ္တစောင့်ပြီး ထပ်မံကြိုးစားကြည့်ပါ။";
-                statusMsg.className = "text-center p-4 rounded-xl font-medium bg-red-500/20 text-red-300 border border-red-500/30 mt-6 block backdrop-blur-md shadow-[0_0_20px_rgba(239,68,68,0.1)]";
+                statusMsg.className = "text-center p-4 rounded-xl font-medium bg-red-500/20 text-red-400 border border-red-500/30 mt-6 block backdrop-blur-md shadow-[0_0_20px_rgba(239,68,68,0.1)]";
             } finally {
-                btn.disabled = false;
-                btnText.textContent = 'Submit Information';
-                spinner.classList.add('hidden');
-                
-                if(statusMsg.classList.contains('text-green-300')){
-                    setTimeout(() => statusMsg.classList.add('hidden'), 5000);
+                if(statusMsg.classList.contains('text-green-400')){
+                    setTimeout(() => statusMsg.classList.add('hidden'), 8000);
                 }
             }
         });
