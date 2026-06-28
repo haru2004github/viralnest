@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="my">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Viral Nest - Premium Client Onboarding Form</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            dark: '#050507',
+                            card: '#111116',
+                            input: '#1a1a24',
+                            orange: '#FF6B00',
+                            orangeLight: '#FF8E33',
+                            text: '#f3f4f6',
+                            muted: '#9ca3af'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'Padauk', 'sans-serif'],
+                    },
+                    animation: {
+                        'gradient-x': 'gradient-x 3s ease infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        'gradient-x': {
+                            '0%, 100%': {
+                                'background-size': '200% 200%',
+                                'background-position': 'left center'
+                            },
+                            '50%': {
+                                'background-size': '200% 200%',
+                                'background-position': 'right center'
+                            }
+                        },
+                        'float': {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Padauk:wght@400;700&display=swap');
+        
+        body {
+            background-color: #08080b; /* Slightly lighter body bg for better contrast */
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+        
+        /* Premium Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #08080b;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 107, 0, 0.4);
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 107, 0, 0.8);
+        }
+
+        /* Glassmorphism Card Style - Improved for readability */
+        .glass-card {
+            background: linear-gradient(145deg, rgba(30, 30, 38, 0.7) 0%, rgba(20, 20, 25, 0.9) 100%);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 40px 0 rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+        }
+
+        /* Premium Input Fields - Improved contrast */
+        .premium-input {
+            background: rgba(15, 15, 20, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            color: #ffffff;
+        }
+        .premium-input:focus {
+            background: rgba(255, 107, 0, 0.04);
+            border-color: rgba(255, 107, 0, 0.6);
+            box-shadow: 0 0 0 4px rgba(255, 107, 0, 0.15), inset 0 0 15px rgba(255, 107, 0, 0.05);
+            outline: none;
+        }
+
+        /* Animated Gradient Button */
+        .btn-gradient {
+            background: linear-gradient(90deg, #FF6B00, #FF9900, #FF6B00);
+            background-size: 200% auto;
+            transition: 0.5s;
+        }
+        .btn-gradient:hover {
+            background-position: right center;
+            box-shadow: 0 0 25px rgba(255, 107, 0, 0.5);
+        }
+
+        /* File Upload area transition */
+        .drop-zone {
+            background: linear-gradient(135deg, rgba(255, 107, 0, 0.05), rgba(255,255,255,0.02));
+            border: 1px dashed rgba(255, 255, 255, 0.2);
+            transition: all 0.4s ease;
+        }
+        .drop-zone:hover, .drop-zone.dragover {
+            border-color: #FF6B00;
+            background: linear-gradient(135deg, rgba(255, 107, 0, 0.1), rgba(255, 107, 0, 0.03));
+            box-shadow: 0 0 20px rgba(255, 107, 0, 0.15) inset;
+        }
+        
+        /* Subtle Text Gradient for headings */
+        .text-gradient {
+            background: linear-gradient(to right, #ffffff, #e0e0e0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .text-gradient-orange {
+            background: linear-gradient(135deg, #FF6B00, #FFB347);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col items-center py-12 px-4 sm:px-6 lg:px-8 selection:bg-brand-orange selection:text-white">
+
+    <!-- Luxury Background Effects -->
+    <div class="fixed top-[-10%] left-[-10%] w-[40%] h-[40%] bg-brand-orange opacity-20 blur-[150px] rounded-full pointer-events-none -z-10 mix-blend-screen"></div>
+    <div class="fixed bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-[#FF4500] opacity-10 blur-[180px] rounded-full pointer-events-none -z-10 mix-blend-screen"></div>
+    <div class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-4xl h-[800px] bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4IiBoZWlnaHQ9IjgiPgo8cmVjdCB3aWR0aD0iOCIgaGVpZ2h0PSI4IiBmaWxsPSIjZmZmZmZmIiBmaWxsLW9wYWNpdHk9IjAuMDEiLz4KPHBhdGggZD0iTTAgMEw4IDhaTThgMGwtOCA4WiIgc3Ryb2tlPSIjZmZmZmZmIiBzdHJva2Utb3BhY2l0eT0iMC4wMiIgc3Ryb2tlLXdpZHRoPSIxIi8+Cjwvc3ZnPg==')] pointer-events-none -z-10"></div>
+
+    <div class="w-full max-w-3xl relative z-10">
+        
+        <!-- Header / Logo Area -->
+        <div class="text-center mb-12 animate-float">
+            <!-- Logo Simulation with Glow -->
+            <div class="inline-flex items-center justify-center mb-6 relative">
+                <div class="absolute inset-0 bg-brand-orange blur-2xl opacity-20 rounded-full"></div>
+                <div class="relative w-20 h-20 mr-4">
+                    <svg viewBox="0 0 100 100" class="w-full h-full drop-shadow-[0_0_10px_rgba(255,107,0,0.8)]">
+                        <!-- V Shape -->
+                        <path d="M15,20 L40,85 L65,40" fill="none" stroke="url(#orangeGrad)" stroke-width="12" stroke-linejoin="round" stroke-linecap="round"/>
+                        <!-- N Shape -->
+                        <path d="M40,85 L65,40 L65,85 L90,20" fill="none" stroke="#e0e0e0" stroke-width="12" stroke-linejoin="round" stroke-linecap="round"/>
+                        <!-- Orbit/Swirl -->
+                        <path d="M50,90 Q95,95 95,50 Q95,15 65,15" fill="none" stroke="url(#orangeGrad)" stroke-width="3" stroke-linecap="round"/>
+                        <!-- Dot -->
+                        <circle cx="95" cy="30" r="4" fill="#FF6B00" />
+                        
+                        <!-- Gradient Definition -->
+                        <defs>
+                            <linearGradient id="orangeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#FF9900" />
+                                <stop offset="100%" stop-color="#FF6B00" />
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </div>
+                <h1 class="text-5xl font-bold tracking-widest uppercase">
+                    <span class="text-gradient-orange">Viral</span>
+                    <span class="text-white drop-shadow-md">Nest</span>
+                </h1>
+            </div>
+            
+            <div class="glass-card rounded-2xl p-6 relative overflow-hidden">
+                <div class="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-brand-orange to-transparent"></div>
+                <p class="text-gray-100 font-normal leading-relaxed text-sm sm:text-base mb-4 tracking-wide">
+                    မိတ်ဆွေရဲ့ လုပ်ငန်းအတွက် အကောင်းဆုံး ဝန်ဆောင်မှုပေးနိုင်ရန် ဒီအချက်အလက်များကို အနီးစပ်ဆုံး မှန်ကန်အောင် သေချာစဉ်းစားပြီး ဖြည့်ပေးပါ။
+                </p>
+                <div class="inline-flex items-center bg-brand-orange/10 border border-brand-orange/30 rounded-full px-5 py-2 text-sm text-brand-orangeLight">
+                    <i class="fas fa-gem mr-2 text-brand-orange animate-pulse"></i>
+                    <span class="font-semibold tracking-wide">Premium Client Onboarding</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Form -->
+        <form id="viralNestForm" class="space-y-10">
+            
+            <!-- User Info Section -->
+            <div class="glass-card rounded-3xl p-8 sm:p-10 relative">
+                <div class="absolute -top-3 -right-3 text-6xl text-white opacity-[0.03] pointer-events-none"><i class="fas fa-user-tie"></i></div>
+                <h2 class="text-2xl font-bold mb-8 text-white flex items-center">
+                    <span class="w-8 h-8 rounded-full bg-brand-orange/20 flex items-center justify-center mr-3 border border-brand-orange/50 text-brand-orange text-sm"><i class="fas fa-info"></i></span>
+                    အခြေခံအချက်အလက်များ
+                </h2>
+                
+                <div class="space-y-6">
+                    <div class="group">
+                        <label class="block text-sm font-semibold text-gray-200 mb-2 group-focus-within:text-brand-orange transition-colors">သင့်အမည် သို့မဟုတ် Brand အမည် (Folder Name အတွက်) <span class="text-brand-orange">*</span></label>
+                        <input type="text" id="userName" name="userName" required placeholder="ဥပမာ - Royal Fashion" 
+                            class="w-full premium-input rounded-xl px-5 py-4 placeholder-gray-400">
+                    </div>
+                    <div class="group">
+                        <label class="block text-sm font-semibold text-gray-200 mb-2 group-focus-within:text-brand-orange transition-colors">Post တွေမှာ ထည့်ရမယ့် လိပ်စာ/ Phone Number <span class="text-brand-orange">*</span></label>
+                        <textarea name="contactInfo" required rows="2" placeholder="ဖုန်းနံပါတ် နှင့် လိပ်စာ အပြည့်အစုံ..." 
+                            class="w-full premium-input rounded-xl px-5 py-4 placeholder-gray-400 resize-none"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Questionnaire Section -->
+            <div class="glass-card rounded-3xl p-8 sm:p-10 relative space-y-10">
+                <div class="absolute -top-3 -right-3 text-6xl text-white opacity-[0.03] pointer-events-none"><i class="fas fa-crown"></i></div>
+                <h2 class="text-2xl font-bold mb-2 text-white flex items-center">
+                    <span class="w-8 h-8 rounded-full bg-brand-orange/20 flex items-center justify-center mr-3 border border-brand-orange/50 text-brand-orange text-sm"><i class="fas fa-briefcase"></i></span>
+                    Brand အသေးစိတ် အချက်အလက်များ
+                </h2>
+                <div class="h-px w-full bg-gradient-to-r from-brand-orange/50 via-white/20 to-transparent mb-8"></div>
+                
+                <!-- Questions generated dynamically for consistent premium styling -->
+                <script>
+                    const questions = [
+                        { name: 'goal', label: 'Viral Nest နဲ့ လက်တွဲနေစဥ်အတွင်း ဘယ်လို ရည်မှန်းချက်ရှိပါသလဲ) Eg. Sale တက်ချင်တယ်၊ Brand ကို လူပိုသိစေချင်တယ်။' },
+                        { name: 'products', label: 'Viral Nest နဲ့တွဲလုပ်မယ့် Product Or Service အမျိုးအစား ဘယ်နှခုရှိပါသလဲ? (တစ်မျိုးချင်းစီရဲ့ အကြောင်းအရာ/ ဈေးနှုန်း အသေးစိတ်ရေးပေးပါ)' },
+                        { name: 'features', label: 'Product တွေရဲ့ Feature နဲ့ ပါဝင်ပစ္စည်းတွေရေးပေးပါ။ (ဥပမာ- အင်္ကျီဆို ချည်သား၊ ဂွမ်းသား/ ဖိနပ်ဆို သားရေ စသဖြင့်)' },
+                        { name: 'benefits', label: 'ဒီ Product Or Service ရဲ့ Benefits တွေ/ ကောင်းကျိုးတွေက ဘာလဲဆိုတာ ရေးပေးပါ။' },
+                        { name: 'usp', label: 'သင့် Brand တစ်ခုလုံးရဲ့ တခြား Brand နဲ့ မတူတဲ့ ထူးခြားချက်တွေက ဘာဖြစ်မလဲ?' },
+                        { name: 'competitors', label: 'သင့်ရဲ့ ပြိုင်ဖက်လို့ ယူဆရတဲ့ Brand (3) ခုက ဘာတွေလဲ?' },
+                        { name: 'guidelines', label: 'Brand နဲ့ ပတ်သက်ပြီး သုံးစေချင်တဲ့ Color, Fonts နဲ့ စည်းမျဉ်းစည်းကမ်းတွေ ရှိရင် ရေးပေးပါ။' },
+                        { name: 'story', label: 'Brand Story (ဒီ Brand ကို စဖွင့်ခဲ့တဲ့အချိန်နဲ့ ဘာကြောင့် ဖွင့်ခဲ့တယ်ဆိုတဲ့ ရည်ရွယ်ချက်လေးရေးပေးပါ)' },
+                        { name: 'mission', label: 'Brand Mission (ဒီ Brand အနေနဲ့ သွားချင်တဲ့ Vision, Mission ပုံစံ)' },
+                        { name: 'persona', label: 'Buyer Persona (သင်ဆီကို အများစု လာဝယ်တဲ့ Customer တွေရဲ့အသက်/ Gender/ အလုပ်အကိုင် နဲ့ စိတ်ဝင်စားမှု)' }
+                    ];
+
+                    questions.forEach((q, index) => {
+                        document.write(`
+                            <div class="group relative">
+                                <div class="absolute -left-4 sm:-left-6 top-0 text-gray-500 font-bold text-xl opacity-40 select-none">${index + 1 < 10 ? '0'+(index+1) : index+1}</div>
+                                <label class="block text-sm sm:text-base font-semibold text-gray-100 mb-3 leading-relaxed group-focus-within:text-brand-orange transition-colors">
+                                    ${q.label} <span class="text-brand-orange">*</span>
+                                </label>
+                                <textarea name="${q.name}" required rows="3" placeholder="ဒီနေရာတွင် ရေးသားပါ..." 
+                                    class="w-full premium-input rounded-xl px-5 py-4 placeholder-gray-400 resize-y min-h-[100px]"></textarea>
+                            </div>
+                        `);
+                    });
+                </script>
+            </div>
+
+            <!-- Data Sharing & File Upload -->
+            <div class="glass-card rounded-3xl p-8 sm:p-10 relative">
+                <div class="absolute -top-3 -right-3 text-6xl text-white opacity-[0.03] pointer-events-none"><i class="fas fa-cloud-upload-alt"></i></div>
+                <h2 class="text-2xl font-bold mb-6 text-white flex items-center">
+                    <span class="w-8 h-8 rounded-full bg-brand-orange/20 flex items-center justify-center mr-3 border border-brand-orange/50 text-brand-orange text-sm"><i class="fas fa-folder-open"></i></span>
+                    Data Sharing
+                </h2>
+                
+                <div class="flex flex-wrap gap-3 mb-8">
+                    <span class="px-4 py-2 rounded-full bg-[#1a1a24] border border-white/10 text-sm text-gray-200 flex items-center"><i class="fas fa-check text-brand-orange mr-2"></i>Brand Logo</span>
+                    <span class="px-4 py-2 rounded-full bg-[#1a1a24] border border-white/10 text-sm text-gray-200 flex items-center"><i class="fas fa-check text-brand-orange mr-2"></i>Product Photo</span>
+                    <span class="px-4 py-2 rounded-full bg-[#1a1a24] border border-white/10 text-sm text-gray-200 flex items-center"><i class="fas fa-check text-brand-orange mr-2"></i>Page Admin Access</span>
+                </div>
+
+                <!-- Multiple File Upload UI -->
+                <div class="mb-8 group">
+                    <label class="block text-sm font-semibold text-gray-200 mb-3 group-focus-within:text-brand-orange transition-colors">ဖိုင်များ တင်ရန် (Logos, Photos, etc.)</label>
+                    
+                    <div id="dropZone" class="drop-zone rounded-2xl p-10 text-center cursor-pointer relative overflow-hidden group">
+                        <div class="absolute inset-0 bg-brand-orange/10 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-in-out"></div>
+                        <input type="file" id="fileInput" name="files" multiple class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10" accept="image/*, .pdf, .doc, .docx, .zip, .rar">
+                        
+                        <div class="relative z-0">
+                            <div class="w-16 h-16 mx-auto bg-[#1a1a24] rounded-full flex items-center justify-center mb-4 shadow-[0_0_15px_rgba(0,0,0,0.5)] group-hover:shadow-[0_0_25px_rgba(255,107,0,0.4)] border border-white/5 transition-all">
+                                <i class="fas fa-cloud-arrow-up text-2xl text-gradient-orange"></i>
+                            </div>
+                            <p class="text-white font-medium text-lg">ဒီနေရာကို နှိပ်ပြီး File များ ရွေးချယ်ပါ</p>
+                            <p class="text-sm text-gray-400 mt-2">သို့မဟုတ် ဖိုင်များကို ဆွဲယူထည့်သွင်းပါ (Max: 5MB per file)</p>
+                        </div>
+                    </div>
+                    
+                    <!-- File Preview Area -->
+                    <div id="fileList" class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3 empty:hidden"></div>
+                </div>
+
+                <!-- Drive Link Option -->
+                <div class="group relative">
+                    <div class="absolute left-4 top-[2.4rem] text-gray-400 group-focus-within:text-brand-orange transition-colors z-10">
+                        <i class="fab fa-google-drive"></i>
+                    </div>
+                    <label class="block text-sm font-semibold text-gray-200 mb-2 group-focus-within:text-brand-orange transition-colors">ကိုယ်ပိုင် Google Drive Link ဖြင့်လည်း Share ပေးနိုင်ပါသည်</label>
+                    <input type="url" name="driveLink" placeholder="Paste your Google Drive link here..." 
+                        class="w-full premium-input rounded-xl pl-12 pr-5 py-4 placeholder-gray-400">
+                </div>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" id="submitBtn" class="w-full btn-gradient text-white font-bold text-lg py-5 rounded-2xl shadow-lg relative overflow-hidden flex justify-center items-center group mt-4">
+                <span id="btnText" class="tracking-wide">Submit Information</span>
+                <i class="fas fa-arrow-right ml-3 transform group-hover:translate-x-2 transition-transform duration-300"></i>
+                <div id="btnSpinner" class="hidden absolute right-6">
+                    <i class="fas fa-circle-notch fa-spin text-xl"></i>
+                </div>
+            </button>
+
+            <!-- Status Message -->
+            <div id="statusMsg" class="hidden text-center p-4 rounded-xl font-medium backdrop-blur-md"></div>
+
+        </form>
+    </div>
+
+    <!-- JavaScript Logic (Kept functionally the same) -->
+    <script>
+        // ---------------------------------------------------------
+        // အရေးကြီးပါသည်: အောက်ပါ URL ကို သင်၏ Google Apps Script Deployment URL ဖြင့် အစားထိုးပါ။
+        // ---------------------------------------------------------
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby8qBTLzbh8OtlbvEUoSEvMSgLRawTBk4KbneFRHOmakvY36k6HCeveTHtsQKa38ExM/exec';
+        
+        let selectedFiles = [];
+        const fileInput = document.getElementById('fileInput');
+        const dropZone = document.getElementById('dropZone');
+        const fileList = document.getElementById('fileList');
+
+        fileInput.addEventListener('change', handleFileSelect);
+        
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+            dropZone.addEventListener(eventName, preventDefaults, false);
+        });
+
+        function preventDefaults(e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+
+        ['dragenter', 'dragover'].forEach(eventName => {
+            dropZone.addEventListener(eventName, () => dropZone.classList.add('dragover'), false);
+        });
+
+        ['dragleave', 'drop'].forEach(eventName => {
+            dropZone.addEventListener(eventName, () => dropZone.classList.remove('dragover'), false);
+        });
+
+        dropZone.addEventListener('drop', (e) => {
+            let dt = e.dataTransfer;
+            let files = dt.files;
+            handleFiles(files);
+        });
+
+        function handleFileSelect(e) {
+            handleFiles(e.target.files);
+        }
+
+        function handleFiles(files) {
+            files = [...files];
+            const MAX_SIZE = 5 * 1024 * 1024; 
+            
+            files.forEach(file => {
+                if(file.size > MAX_SIZE) {
+                    alert(`${file.name} သည် Size ကြီးလွန်းပါသည်။ 5MB အောက်သာ တင်ပေးပါ။`);
+                    return;
+                }
+                if(!selectedFiles.some(f => f.name === file.name)) {
+                    selectedFiles.push(file);
+                }
+            });
+            updateFileUI();
+        }
+
+        function updateFileUI() {
+            fileList.innerHTML = '';
+            selectedFiles.forEach((file, index) => {
+                const size = (file.size / 1024 / 1024).toFixed(2) + ' MB';
+                
+                // Determine icon based on file type
+                let iconClass = 'fa-file';
+                let iconColor = 'text-gray-300';
+                if(file.type.startsWith('image/')) { iconClass = 'fa-file-image'; iconColor = 'text-blue-400'; }
+                else if(file.type === 'application/pdf') { iconClass = 'fa-file-pdf'; iconColor = 'text-red-400'; }
+                else if(file.type.includes('word')) { iconClass = 'fa-file-word'; iconColor = 'text-blue-400'; }
+                else if(file.name.endsWith('.zip') || file.name.endsWith('.rar')) { iconClass = 'fa-file-zipper'; iconColor = 'text-yellow-500'; }
+
+                const fileItem = document.createElement('div');
+                fileItem.className = 'flex items-center justify-between bg-white/[0.05] border border-white/10 p-3 rounded-xl hover:bg-white/[0.1] transition-colors';
+                fileItem.innerHTML = `
+                    <div class="flex items-center overflow-hidden">
+                        <div class="w-10 h-10 rounded-lg bg-black/40 flex items-center justify-center mr-3 border border-white/5">
+                            <i class="fas ${iconClass} ${iconColor} text-lg"></i>
+                        </div>
+                        <div class="flex flex-col">
+                            <span class="text-sm truncate w-32 sm:w-40 text-gray-100 font-medium">${file.name}</span>
+                            <span class="text-xs text-gray-400">${size}</span>
+                        </div>
+                    </div>
+                    <button type="button" onclick="removeFile(${index})" class="text-gray-400 hover:text-red-400 w-8 h-8 rounded-full hover:bg-red-500/20 flex items-center justify-center transition-all">
+                        <i class="fas fa-times"></i>
+                    </button>
+                `;
+                fileList.appendChild(fileItem);
+            });
+        }
+
+        function removeFile(index) {
+            selectedFiles.splice(index, 1);
+            updateFileUI();
+        }
+
+        const getBase64 = (file) => new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => {
+                const base64Data = reader.result.split(',')[1];
+                resolve({
+                    name: file.name,
+                    mimeType: file.type,
+                    data: base64Data
+                });
+            };
+            reader.onerror = error => reject(error);
+        });
+
+        document.getElementById('viralNestForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const btn = document.getElementById('submitBtn');
+            const btnText = document.getElementById('btnText');
+            const spinner = document.getElementById('btnSpinner');
+            const statusMsg = document.getElementById('statusMsg');
+
+            if (GOOGLE_SCRIPT_URL === 'YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE') {
+                alert("စမ်းသပ်ရန်အတွက်သာဖြစ်သည်။ အမှန်တကယ်အလုပ်လုပ်ရန် Google Apps Script URL ကို Code ထဲတွင် ထည့်ပေးရန်လိုအပ်ပါသည်။");
+                return;
+            }
+
+            btn.disabled = true;
+            btnText.textContent = 'Sending Data...';
+            spinner.classList.remove('hidden');
+            statusMsg.classList.add('hidden');
+
+            try {
+                const formData = new FormData(this);
+                const dataObject = Object.fromEntries(formData.entries());
+                
+                btnText.textContent = 'Preparing Files...';
+                const filePromises = selectedFiles.map(file => getBase64(file));
+                const filesBase64 = await Promise.all(filePromises);
+                
+                dataObject.files = JSON.stringify(filesBase64);
+                
+                btnText.textContent = 'Uploading... (Please wait)';
+                
+                const response = await fetch(GOOGLE_SCRIPT_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    cache: 'no-cache',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(dataObject)
+                });
+
+                statusMsg.textContent = "အချက်အလက်များ အောင်မြင်စွာ ပေးပို့ပြီးပါပြီ။ ကျေးဇူးတင်ပါသည်။";
+                statusMsg.className = "text-center p-4 rounded-xl font-medium bg-green-500/20 text-green-300 border border-green-500/30 mt-6 block backdrop-blur-md shadow-[0_0_20px_rgba(34,197,94,0.1)]";
+                
+                this.reset();
+                selectedFiles = [];
+                updateFileUI();
+
+            } catch (error) {
+                console.error('Error:', error);
+                statusMsg.textContent = "အမှားအယွင်းဖြစ်ပေါ်နေပါသည်။ ခေတ္တစောင့်ပြီး ထပ်မံကြိုးစားကြည့်ပါ။";
+                statusMsg.className = "text-center p-4 rounded-xl font-medium bg-red-500/20 text-red-300 border border-red-500/30 mt-6 block backdrop-blur-md shadow-[0_0_20px_rgba(239,68,68,0.1)]";
+            } finally {
+                btn.disabled = false;
+                btnText.textContent = 'Submit Information';
+                spinner.classList.add('hidden');
+                
+                if(statusMsg.classList.contains('text-green-300')){
+                    setTimeout(() => statusMsg.classList.add('hidden'), 5000);
+                }
+            }
+        });
+    </script>
+</body>
+</html>
